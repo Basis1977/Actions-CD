@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prod-website
+  namespace: prod
+spec:
+  selector:
+    matchLabels:
+      app: prod-website
+  template:
+    metadata:
+      labels:
+        app: prod-website
+    spec:
+      containers:
+      - name: website
+        image: nfacr.azurecr.io/webdemo/webdemo:1
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prod-website
+  namespace: prod
+spec:
+  selector:
+    app: prod-website
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prod-website
+  namespace: prod
+spec:
+  rules:
+  - host: prod.nillsf.com
+    http:    
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: prod-website
+            port:
+              number: 80
