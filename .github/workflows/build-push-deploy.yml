@@ -54,7 +54,7 @@ jobs:
         run: kubectl set image deployment/test-website -n test website=nfacr.azurecr.io/webdemo/webdemo:${{ github.run_number }}
 
   deploy-prod:
-    needs: test
+    needs: deploy-test
     runs-on: ubuntu-latest
     environment: prod
     steps:
