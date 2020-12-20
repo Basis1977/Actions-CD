@@ -52,3 +52,23 @@ jobs:
 
       - name: update deployment image
         run: kubectl set image deployment/test-website -n test website=nfacr.azurecr.io/webdemo/webdemo:${{ github.run_number }}
+
+  deploy-prod:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: az login
+        run: az login --service-principal --username ${{ secrets.APP_ID }} --password ${{ secrets.PASSWORD }} --tenant ${{ secrets.TENANT_ID }} 
+
+      - name: get AKS credentials
+        run: az aks get-credentials -n nfaks -g gh-actions
+
+      - name: deploy (will deploy base infra if not exists)
+        run: kubectl create -f prod.yaml
+        continue-on-error: true
+
+      - name: update deployment image
+        run: kubectl set image deployment/prod-website -n prod website=nfacr.azurecr.io/webdemo/webdemo:${{ github.run_number }}
