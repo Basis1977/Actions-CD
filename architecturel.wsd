@@ -1,0 +1,33 @@
+@startuml
+title GitHub Actions Kubernetes demo
+
+
+frame "K8S Cluster" {
+    node "Ingress" as ingress
+
+    folder "Namespace prod" {
+        storage  "service" as prod_svc
+        frame "deployment" as prod_deploy{
+        node "Pod 1" as prod_pod_1
+        node "Pod 2" as prod_pod_2
+        }
+    }
+
+    folder "Namespace test" {
+        storage "service" as test_svc
+        frame "deployment" as test_deploy{
+        node "Pod 1" as test_pod_1
+        node "Pod 2" as test_pod_2
+        }
+    }
+}
+
+ingress ..> prod_svc: "prod.nillsf.com"
+prod_svc --> prod_pod_1
+prod_svc --> prod_pod_2
+
+ingress ..> test_svc: "test.nillsf.com"
+test_svc --> test_pod_1
+test_svc --> test_pod_2
+
+@enduml
