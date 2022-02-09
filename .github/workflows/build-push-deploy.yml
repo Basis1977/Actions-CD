@@ -62,8 +62,9 @@ jobs:
         run: az login --service-principal --username ${{ secrets.APP_ID }} --password ${{ secrets.PASSWORD }} --tenant ${{ secrets.TENANT_ID }} 
 
       - name: get AKS credentials
-        #run: az aks get-credentials -n nfaks123 -g gh-actions
-        run: az aks get-credentials --resource-group gh-actions --name githubk8s
+        #run: az aks get-credentials -n nfaks123 -g gh-actions  run: az aks get-credentials -n githubk8s -g cdgithubactions 
+        #run: az aks get-credentials -n githubk8s -g cdgithubactions 
+        run: az aks get-credentials --resource-group cdgithubactions --name githubk8s
 
       - name: deploy (will deploy base infra if not exists)
         run: kubectl create -f prod.yaml
