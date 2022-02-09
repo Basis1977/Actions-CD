@@ -41,7 +41,7 @@ jobs:
         run: az login --service-principal --username ${{ secrets.APP_ID }} --password ${{ secrets.PASSWORD }} --tenant ${{ secrets.TENANT_ID }} 
 
       - name: get AKS credentials
-        run: az aks get-credentials -n nfaks123 -g cdgithubactions        
+        run: az aks get-credentials -n nfaks123 -g DefaultResourceGroup-WEU 
        # gh-actions
 
       - name: deploy (will deploy base infra if not exists)
