@@ -23,7 +23,7 @@ jobs:
         run: az login --service-principal --username ${{ secrets.APP_ID }} --password ${{ secrets.PASSWORD }} --tenant ${{ secrets.TENANT_ID }} 
         
       - name: Build Docker Container
-        run: docker build . -t nfacr.azurecr.io/webdemo/webdemo:${{ github.run_number }}
+        run: docker build . -t nfacr123.azurecr.io/webdemo/webdemo:${{ github.run_number }}
 
       - name: ACR login
         run: az acr login -n nfacr123
