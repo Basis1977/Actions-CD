@@ -66,6 +66,5 @@ jobs:
       - name: deploy (will deploy base infra if not exists)
         run: kubectl create -f prod.yaml
         continue-on-error: true
-
       - name: update deployment image
         run: kubectl set image deployment/prod-website -n prod website=nfacr123.azurecr.io/webdemo/webdemo:${{ github.run_number }}
