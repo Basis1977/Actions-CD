@@ -28,7 +28,7 @@ jobs:
      - name: Install Whispers
        run: sudo pip install whispers
        env: # Or as an environment variable
-        credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        credentials: ${{ secrets.PASSWORD }}
  
      # Scan repo for secrets
      - name: Run scanner for the repository
