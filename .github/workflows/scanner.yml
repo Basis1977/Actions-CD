@@ -8,7 +8,7 @@ on:
  # Triggers the workflow on push or pull request events for the main branch
  push:
    branches: [ main ]
- 
+   
 # Defining the job(s) to be run to execute secrets scanning
 jobs:
  
@@ -20,13 +20,15 @@ jobs:
  
    # Steps define the order in which the tasks will be executed
    steps:
- 
+      
      # Checks-out the repository so our job can access it
      - uses: actions/checkout@v2
     
      # Installs secret scanner on the runner
      - name: Install Whispers
        run: sudo pip install whispers
+       env: # Or as an environment variable
+        credentials: ${{ secrets.AZURE_CREDENTIALS }}
  
      # Scan repo for secrets
      - name: Run scanner for the repository
