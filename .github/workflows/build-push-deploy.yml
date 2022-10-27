@@ -18,17 +18,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         
-      - name: az login
-        run: az login --service-principal --username ${{ secrets.APP_ID }} --password ${{ secrets.PASSWORD }} --tenant ${{ secrets.TENANT_ID }} 
-        
-      - name: Build Docker Container
-        run: docker build . -t nfacr123.azurecr.io/webdemo/webdemo:${{ github.run_number }}
-
-      - name: ACR login
-        run: az acr login -n nfacr123
-
-      - name: Push container
-        run: docker push nfacr123.azurecr.io/webdemo/webdemo:${{ github.run_number }}
+      
 
   deploy-test:
     needs: build-push
